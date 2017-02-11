@@ -26,7 +26,7 @@ tar xvfz $(basename "$SOURCE");
 
 # compile source
 cd $(basename "$SOURCE" ".tar.gz");
-CPPFLAGS="-DSQLITE_ENABLE_COLUMN_METADATA" ./configure --enable-fts5 --enable-json1;
+CPPFLAGS='-DSQLITE_ENABLE_COLUMN_METADATA' CFLAGS='-DSQLITE_SOUNDEX' ./configure --enable-fts5 --enable-json1;
 make -j4;
 
 # install
