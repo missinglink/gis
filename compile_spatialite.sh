@@ -12,7 +12,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd );
 # see: https://www.gaia-gis.it/fossil/libspatialite/index
 
 # remove version provided by package manager
-sudo apt-get -qq remove -y "libspatialite*";
+# sudo apt-get -qq remove -y "libspatialite*";
 
 # install the CVS tools used for this repo
 sudo apt-get update;
