@@ -12,7 +12,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd );
 # see: https://www.gaia-gis.it/fossil/libspatialite/index
 
 # remove version provided by package manager
-# sudo apt-get -qq remove -y "libspatialite*";
+sudo apt-get -qq remove -y "libspatialite*";
 
 # install the CVS tools used for this repo
 sudo apt-get update;
@@ -26,9 +26,13 @@ sudo apt-get -y install \
   libxml2-dev \
   libexpat1-dev \
   libwxgtk3.0-dev \
-  libopenjp2-7-dev \
-  libwebp-dev \
-  liblzma-dev;
+  libopenjp2-7-dev;
+  # libwebp-dev \
+  # liblzma-dev \
+  # libpng-dev \
+  # libgif-dev \
+  # libgeotiff-dev \
+  # libfreetype6-dev;
 
 # clean up
 rm -rf $DIR/tmp;
@@ -44,6 +48,16 @@ function clone(){
   fossil open ../$REPO.fossil;
   cd -;
 }
+
+# ---- freexl ----
+clone "freexl";
+cd $DIR/tmp/freexl;
+./configure;
+make -j4;
+sudo make install;
+sudo ldconfig;
+cd -;
+
 
 # ---- librttopo ----
 rm -rf $DIR/tmp/librttopo;
@@ -64,7 +78,7 @@ cd $DIR/tmp/libspatialite;
 export LIBXML2_CFLAGS=`xml2-config --cflags`;
 export LIBXML2_LIBS=`xml2-config --libs --static`;
 
-./configure --enable-rttopo --enable-geocallbacks --enable-libxml2 --disable-freexl; # disable excel spreadsheet support
+./configure --enable-rttopo --enable-geocallbacks --enable-gcp=yes --enable-libxml2;
 make -j4;
 sudo make install;
 sudo ldconfig;
@@ -73,7 +87,7 @@ cd -;
 # ---- readosm ----
 clone "readosm";
 cd $DIR/tmp/readosm;
-./configure --disable-freexl; # disable excel spreadsheet support
+./configure;
 make -j4;
 sudo make install;
 sudo ldconfig;
@@ -82,16 +96,40 @@ cd -;
 # ---- spatialite-tools ----
 clone "spatialite-tools";
 cd $DIR/tmp/spatialite-tools;
-./configure --disable-freexl; # disable excel spreadsheet support
+./configure;
 make -j4;
 sudo make install;
 sudo ldconfig;
 cd -;
 
-# # ---- spatialite-gui ----
+# ---- librasterlite2 ----
+# /usr/lib/x86_64-linux-gnu/libcairo.so.2.11400.6
+# export LIBCAIRO_CFLAGS='-I/var/www/gis';
+# export LIBCAIRO_LIBS='-I/var/www/gis -L/usr/local/lib -lcairo';
+# export FREETYPE2_CFLAGS='-I/usr/include/freetype2';
+# export FREETYPE2_LIBS='-I/usr/include/freetype2 -L/usr/local/lib -lfreetype2';
+# clone "librasterlite2";
+# cd $DIR/tmp/librasterlite2;
+# ./configure --disable-charls;
+# make -j4;
+# sudo make install;
+# sudo ldconfig;
+# cd -;
+
+# # # ---- spatialite-gui ----
+# # configure liblzma location
+# export LIBXML2_CFLAGS=`xml2-config --cflags`;
+# export LIBXML2_LIBS=`xml2-config --libs --static`;
+# export LIBLZMA_CFLAGS='-I/usr/include/lzma';
+# export LIBLZMA_LIBS='-llzma';
+# export LIBSPATIALITE_CFLAGS='-I/usr/local/lib';
+# export LIBSPATIALITE_LIBS='-L/usr/local/lib';
+# # export LIBRASTERLITE2_CFLAGS='-I/usr/local/lib';
+# # export LIBRASTERLITE2_LIBS='-L/usr/local/lib';
+#
 # clone "spatialite_gui";
 # cd $DIR/tmp/spatialite_gui;
-# ./configure --disable-freexl --disable-libxml2 --disable-webp --disable-charls --disable-liblzma;
+# ./configure --disable-webp --disable-charls;
 # make -j4;
 # sudo make install;
 # cd -;
