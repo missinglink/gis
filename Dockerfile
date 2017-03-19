@@ -32,7 +32,6 @@ RUN sudo -H -u docker /bin/bash compile_spatialite.sh
 RUN sudo -H -u docker /bin/bash compile_gdal.sh
 
 # volumes
-VOLUME "/code"
 VOLUME "/data"
 
 # clean up
