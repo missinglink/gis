@@ -16,7 +16,7 @@ rm -rf $DIR/tmp;
 mkdir -p $DIR/tmp;
 
 # download and extract source code
-SOURCE="http://download.osgeo.org/gdal/2.1.3/gdal-2.1.3.tar.gz";
+SOURCE="http://download.osgeo.org/gdal/2.2.0/gdal-2.2.0.tar.gz";
 wget -q $SOURCE -P $DIR/tmp;
 cd $DIR/tmp;
 tar xvfz $(basename "$SOURCE");
@@ -32,6 +32,7 @@ cd $(basename "$SOURCE" ".tar.gz");
   --with-gif=internal \
   --with-png=internal \
   --with-sqlite3=yes \
+  --with-spatialite=yes \
   --with-geos=yes \
   --with-libz=internal;
 make -j4;
