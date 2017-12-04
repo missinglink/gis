@@ -16,7 +16,7 @@ rm -rf $DIR/tmp;
 mkdir -p $DIR/tmp;
 
 # download and extract source code
-SOURCE="http://download.osgeo.org/gdal/2.2.0/gdal-2.2.0.tar.gz";
+SOURCE="http://download.osgeo.org/gdal/2.2.3/gdal-2.2.3.tar.gz";
 wget -q $SOURCE -P $DIR/tmp;
 cd $DIR/tmp;
 tar xvfz $(basename "$SOURCE");
