@@ -10,11 +10,13 @@ RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
 RUN sed -i "s/sudo	ALL=(ALL:ALL) ALL/sudo	ALL=(ALL:ALL) NOPASSWD:ALL/" /etc/sudoers
 
 # configure locale
-ENV LD_LIBRARY_PATH=.:/lib:/usr/lib:/usr/local/lib
 RUN locale-gen en_US.UTF-8
 ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en
 ENV LC_ALL en_US.UTF-8
+
+# set ld path
+ENV LD_LIBRARY_PATH=.:/lib:/usr/lib:/usr/local/lib
 
 # configure directories & copy source files
 RUN mkdir -p /service/gis
