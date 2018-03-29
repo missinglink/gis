@@ -13,21 +13,28 @@ rm -rf $DIR/tmp;
 mkdir -p $DIR/tmp;
 
 # install dependencies
+# libprotozero-dev \
 sudo apt-get -y install \
   cmake \
   cmake-curses-gui \
   make \
+  g++ \
+  git \
+  ruby \
+  ruby-json \
+  libutfcpp-dev \
   libexpat1-dev \
   zlib1g-dev \
   libbz2-dev \
-  libsparsehash-dev \
   libboost-dev \
+  libsparsehash-dev \
   libgdal-dev \
+  libgeos++-dev \
   libproj-dev \
   doxygen \
   graphviz;
 
-# download and extract source code
+# install the latest version of libosmium
 rm -rf $DIR/tmp/libosmium;
 git clone https://github.com/osmcode/libosmium.git $DIR/tmp/libosmium;
 mkdir -p $DIR/tmp/libosmium/build;
