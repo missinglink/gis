@@ -14,7 +14,7 @@ $ docker build -t missinglink/gis .
 > interactive shell
 
 ```bash
-$ docker run -it -v /data:/data missinglink/gis bash
+$ docker run -it --rm -v /data:/data missinglink/gis bash
 ```
 
 # use as base for another Dockerfile
