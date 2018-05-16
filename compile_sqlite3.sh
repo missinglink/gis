@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e;
 export LC_ALL=en_US.UTF-8;
+export DEBIAN_FRONTEND=noninteractive;
 
 # location of this file in filesystem
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd );
@@ -20,7 +21,7 @@ mkdir -p $DIR/tmp;
 # download and extract source code
 # note: matched version currently bundled with node-sqlite3
 SOURCE="https://www.sqlite.org/2018/sqlite-autoconf-3230100.tar.gz";
-wget -q $SOURCE -P $DIR/tmp;
+wget -q --no-check-certificate $SOURCE -P $DIR/tmp;
 cd $DIR/tmp;
 tar xvfz $(basename "$SOURCE");
 

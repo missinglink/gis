@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e;
 export LC_ALL=en_US.UTF-8;
+export DEBIAN_FRONTEND=noninteractive;
 
 # location of this file in filesystem
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd );

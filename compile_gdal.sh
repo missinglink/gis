@@ -2,6 +2,7 @@
 set -e;
 export LC_ALL=en_US.UTF-8;
 export LD_LIBRARY_PATH=/lib:/usr/lib:/usr/local/lib;
+export DEBIAN_FRONTEND=noninteractive;
 
 # location of this file in filesystem
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd );

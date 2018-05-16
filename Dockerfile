@@ -1,13 +1,11 @@
 # base image
-FROM ubuntu:16.04
+FROM ubuntu:18.04
 
 # configure env
 ENV DEBIAN_FRONTEND noninteractive
 
-# configure user
-RUN apt-get update && apt-get --no-install-recommends -y install sudo apt-utils locales build-essential autotools-dev autoconf automake pkg-config libtool wget file && rm -rf /var/lib/apt/lists/*
-RUN useradd -m docker && echo "docker:docker" | chpasswd && adduser docker sudo
-RUN sed -i "s/sudo	ALL=(ALL:ALL) ALL/sudo	ALL=(ALL:ALL) NOPASSWD:ALL/" /etc/sudoers
+# install dependencies
+RUN apt-get update && apt-get --no-install-recommends -y install sudo apt-utils locales build-essential autotools-dev autoconf automake pkg-config libtool wget file tzdata && rm -rf /var/lib/apt/lists/*
 
 # configure locale
 RUN locale-gen en_US.UTF-8
@@ -18,34 +16,39 @@ ENV LC_ALL en_US.UTF-8
 # set ld path
 ENV LD_LIBRARY_PATH=.:/lib:/usr/lib:/usr/local/lib
 
+# create user and grant sudo
+RUN adduser --disabled-password --gecos '' docker
+RUN adduser docker sudo
+RUN echo '%sudo ALL=(ALL) NOPASSWD:ALL' >> /etc/sudoers
+
 # configure directories & copy source files
 RUN mkdir -p /service/gis
 RUN chown "docker:docker" /service/gis
 WORKDIR /service/gis
 
+# switch user
+USER docker
+ENV USER docker
+
 # compile sqlite3
 COPY compile_sqlite3.sh /service/gis/
-RUN sudo -H -u docker /bin/bash compile_sqlite3.sh
+RUN ./compile_sqlite3.sh && sudo rm -rf /service/gis/* /var/lib/apt/lists/*
 
 # compile spatialite
 COPY compile_spatialite.sh /service/gis/
-RUN sudo -H -u docker /bin/bash compile_spatialite.sh
+RUN ./compile_spatialite.sh && sudo rm -rf /service/gis/* /var/lib/apt/lists/*
 
 # compile gdal
 COPY compile_gdal.sh /service/gis/
-RUN sudo -H -u docker /bin/bash compile_gdal.sh
+RUN ./compile_gdal.sh && sudo rm -rf /service/gis/* /var/lib/apt/lists/*
 
 # compile protozero
 COPY compile_protozero.sh /service/gis/
-RUN sudo -H -u docker /bin/bash compile_protozero.sh
+RUN ./compile_protozero.sh && sudo rm -rf /service/gis/* /var/lib/apt/lists/*
 
 # compile osmium
 COPY compile_osmium.sh /service/gis/
-RUN sudo -H -u docker /bin/bash compile_osmium.sh
+RUN ./compile_osmium.sh && sudo rm -rf /service/gis/* /var/lib/apt/lists/*
 
 # volumes
 VOLUME "/data"
-
-# clean up
-RUN rm -rf /service/gis/tmp
-RUN rm -rf /var/lib/apt/lists/*

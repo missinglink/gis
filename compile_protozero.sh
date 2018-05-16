@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e;
 export LC_ALL=en_US.UTF-8;
+export DEBIAN_FRONTEND=noninteractive;
 
 # location of this file in filesystem
 DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd );
@@ -9,6 +10,7 @@ DIR=$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd );
 # https://github.com/mapbox/protozero
 
 # install dependencies
+sudo apt-get update -y
 sudo apt-get -y install cmake
 
 # clean up
