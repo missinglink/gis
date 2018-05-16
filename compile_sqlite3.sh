@@ -19,14 +19,15 @@ mkdir -p $DIR/tmp;
 
 # download and extract source code
 # note: matched version currently bundled with node-sqlite3
-SOURCE="http://www.sqlite.org/2017/sqlite-autoconf-3210000.tar.gz";
+SOURCE="https://www.sqlite.org/2018/sqlite-autoconf-3230100.tar.gz";
 wget -q $SOURCE -P $DIR/tmp;
 cd $DIR/tmp;
 tar xvfz $(basename "$SOURCE");
 
 # compile source
 cd $(basename "$SOURCE" ".tar.gz");
-CPPFLAGS='-DSQLITE_ENABLE_COLUMN_METADATA -DSQLITE_MAX_WORKER_THREADS=8 -DSQLITE_DEFAULT_WORKER_THREADS=8' CFLAGS='-DSQLITE_SOUNDEX' ./configure --enable-fts5 --enable-json1;
+CFLAGS='-std=gnu99 -DSQLITE_SOUNDEX -DSQLITE_ENABLE_RTREE -DSQLITE_THREADSAFE=1 -DHAVE_USLEEP=1 -DHAVE_PREAD64=1 -DHAVE_PWRITE64=1 -DSQLITE_ENABLE_FTS3 -DSQLITE_ENABLE_FTS3_PARENTHESIS -DSQLITE_ENABLE_FTS4_UNICODE61 -DSQLITE_TRACE_SIZE_LIMIT=15 -DSQLITE_DISABLE_INTRINSIC -Wno-deprecated-declarations' \
+  ./configure --enable-fts5 --enable-json1;
 make -j4;
 
 # install
