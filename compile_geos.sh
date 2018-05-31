@@ -23,6 +23,6 @@ curl -O https://launchpad.net/ubuntu/+archive/primary/+files/geos_3.6.2.orig.tar
 tar xvfj geos_3.6.2.orig.tar.bz2;
 cd geos-3.6.2;
 ./configure;
-make -j4;
+make -j8;
 sudo make install;
 sudo ldconfig;

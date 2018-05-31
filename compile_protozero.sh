@@ -23,7 +23,7 @@ git clone https://github.com/mapbox/protozero.git $DIR/tmp/protozero;
 mkdir -p $DIR/tmp/protozero/build;
 cd $DIR/tmp/protozero/build;
 cmake ..;
-make -j4;
+make -j8;
 sudo make install;
 sudo ldconfig;
 cd -;

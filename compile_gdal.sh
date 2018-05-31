@@ -36,7 +36,7 @@ cd $(basename "$SOURCE" ".tar.gz");
   --with-spatialite=yes \
   --with-geos=yes \
   --with-libz=internal;
-make -j4;
+make -j8;
 
 # install
 sudo make install;

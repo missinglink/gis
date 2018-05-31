@@ -23,6 +23,6 @@ curl -O https://launchpad.net/ubuntu/+archive/primary/+files/proj_4.9.3.orig.tar
 tar tar xvfz proj_4.9.3.orig.tar.gz;
 cd proj-4.9.3;
 ./configure;
-make -j4;
+make -j8;
 sudo make install;
 sudo ldconfig;
