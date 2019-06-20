@@ -25,7 +25,7 @@ tar xvfz $(basename "$SOURCE");
 # compile source
 cd $(basename "$SOURCE" ".tar.gz");
 ./configure \
-  --with-static-proj4=/usr/local/lib \
+  --with-proj=/usr/local/lib \
   --with-threads=yes \
   --with-libtiff=internal \
   --with-geotiff=internal \

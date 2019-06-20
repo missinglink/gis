@@ -20,7 +20,7 @@ mkdir -p $DIR/tmp;
 
 # download and extract source code
 # note: matched version currently bundled with node-sqlite3
-SOURCE="https://www.sqlite.org/2018/sqlite-autoconf-3230100.tar.gz";
+SOURCE="https://www.sqlite.org/2019/sqlite-autoconf-3280000.tar.gz";
 wget -q --no-check-certificate $SOURCE -P $DIR/tmp;
 cd $DIR/tmp;
 tar xvfz $(basename "$SOURCE");
