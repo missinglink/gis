@@ -49,6 +49,3 @@ RUN ./compile_protozero.sh && sudo rm -rf /service/gis/* /var/lib/apt/lists/*
 # compile osmium
 COPY compile_osmium.sh /service/gis/
 RUN ./compile_osmium.sh && sudo rm -rf /service/gis/* /var/lib/apt/lists/*
-
-# volumes
-VOLUME "/data"
